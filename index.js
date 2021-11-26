@@ -48,14 +48,95 @@
 
             // Asynchronous DOne
 
-
             // /SERVER CREATE // ON HAND MODE 
-const http = require('http');
+// const http = require('http');
 
-const server = http.createServer((req,res) => {
-    console.log(req);
-    res.end('HELLO WELCOME SERVER');
-});
-server.listen(8000,'127.168.0.1',()=>{
-    console.log('welcome Our Server')
-});
+// const server = http.createServer((req,res) => {
+//     // console.log(req);
+//     res.end('HELLO WELCOME SERVER');
+// });
+// server.listen(8000,'127.168.0.1',()=>{
+//     console.log('welcome Our Server')
+// });
+
+// again Server creatred
+
+// const http = require('http');
+// const server = http.createServer((req, res) =>{
+//     res.end('Welcome HEY')
+// })
+// server.listen(5000,'127.0.0.1',()=>{
+//     console.log('welcome Our Server')
+// })
+
+///////////////////////////////////////////////////////////////
+                    // ANOTHER EAY DONE//
+//////////////////////////////////////////////////////////////
+
+///////////////////////////////////////////////////////////////
+                    //ROUTING STARTED//
+//////////////////////////////////////////////////////////////
+
+// const http = require('http')
+// const url = require('url')
+
+// const server = http.createServer((req,res) => {
+
+//     const pathName = req.url;
+
+//     if(pathName === '/' || pathName === '/overview'){
+//         res.end('This Is OVERVIEW PAGE')
+//     }
+//     else if(pathName === '/product'){
+//         res.end('This PAGE is PRODUCT')
+//     }
+//     else{
+//         res.writeHead(404,{
+//             'Content-type':'text/html',
+//             'my-own-header':'Hellow World'
+//         })
+//         res.end('<h1> 404 PAGE NOT FOUND</h1>')
+//     }
+// })
+// server.listen(3000,'127.0.0.1',()=>{
+//     console.log('EWlCOME')
+// })
+///////////////////////////////////////////////////////////////
+                    //ROUTING END//
+//////////////////////////////////////////////////////////////
+
+///////////////////////////////////////////////////////////////
+                    //AGAIN ROUTING//
+//////////////////////////////////////////////////////////////
+const http = require('http')
+const url = require('url')
+
+const server = http.createServer((req,res) =>{
+    const pathName = req.url;
+    if(pathName === '/' || pathName === '/admin'){
+        res.end('This Is ADMIN PAGE')
+    }
+    else if(pathName === '/overview'){
+        res.end('OVERVIEW page Here')
+    }else if(pathName === '/category'){
+        res.end('CATEGORY page Here')
+    }else{
+        res.writeHead(404,{
+            'Content-type': 'text/html',
+            'my-Own-Content': 'Hellow World'
+        })
+        res.end('<h1> 404 PAGE NOT FOUND</h1>')
+    }
+   
+})
+server.listen(8000,'127.10.0.1',()=>{
+    
+    console.log('hey')
+})
+
+// const http = require('http');
+// const server = http.createServer((req, res) =>{
+//     res.end('Welcome HEY')
+// })
+// server.listen(5000,'127.0.0.1',()=>{
+//     console.log('welcome Our Server')

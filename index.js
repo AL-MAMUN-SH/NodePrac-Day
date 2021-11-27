@@ -108,35 +108,67 @@
 ///////////////////////////////////////////////////////////////
                     //AGAIN ROUTING//
 //////////////////////////////////////////////////////////////
+// const http = require('http')
+// const url = require('url')
+
+// const server = http.createServer((req,res) =>{
+//     const pathName = req.url;
+//     if(pathName === '/' || pathName === '/admin'){
+//         res.end('This Is ADMIN PAGE')
+//     }
+//     else if(pathName === '/overview'){
+//         res.end('OVERVIEW page Here')
+//     }else if(pathName === '/category'){
+//         res.end('CATEGORY page Here')
+//     }else{
+//         res.writeHead(404,{
+//             'Content-type': 'text/html',
+//             'my-Own-Content': 'Hellow World'
+//         })
+//         res.end('<h1> 404 PAGE NOT FOUND</h1>')
+//     }
+   
+// })
+// server.listen(8000,'127.10.0.1',()=>{
+    
+//     console.log('hey')
+// })
+///////////////////////////////////////////////////////////////
+                    //API PROCESS //
+//////////////////////////////////////////////////////////////
+const fs = require('fs');
+const { fsyncSync } = require('fs');
 const http = require('http')
 const url = require('url')
 
-const server = http.createServer((req,res) =>{
+const dataobj = fs.readFileSync(`${__dirname}/dev-data/data.json`,'utf-8')
+const data =JSON.parse(dataobj)
+
+const server = http.createServer((req,res)=>{
     const pathName = req.url;
-    if(pathName === '/' || pathName === '/admin'){
-        res.end('This Is ADMIN PAGE')
+    
+    if (pathName === '/' || pathName === '/admin'){
+        res.end('THIS ADMIN PAGE');
     }
-    else if(pathName === '/overview'){
-        res.end('OVERVIEW page Here')
-    }else if(pathName === '/category'){
-        res.end('CATEGORY page Here')
-    }else{
-        res.writeHead(404,{
-            'Content-type': 'text/html',
-            'my-Own-Content': 'Hellow World'
+    else if (pathName === '/api'){
+        // fs.readFile(`${__dirname}/dev-data/data.json`,'utf-8',(err,data)=>{
+        //     const Pobj = JSON.parse(data);
+        //     // console.log(Pobj)
+        //     res.end(data)
+        res.writeHead(200,{
+            'Content-type': 'application/json'
         })
-        res.end('<h1> 404 PAGE NOT FOUND</h1>')
+        res.end(dataobj);
     }
-   
+    else{
+        res.writeHead(404,{
+            'Content-type':'text/html',
+            'my-own-header':'hellow World'
+        })
+        res.end('<h1> 404 PageNot Found</h1>')
+    }
+
 })
 server.listen(8000,'127.10.0.1',()=>{
-    
     console.log('hey')
 })
-
-// const http = require('http');
-// const server = http.createServer((req, res) =>{
-//     res.end('Welcome HEY')
-// })
-// server.listen(5000,'127.0.0.1',()=>{
-//     console.log('welcome Our Server')

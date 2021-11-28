@@ -193,7 +193,6 @@ const server = http.createServer((req,res)=>{
         })
         res.end('<h1> 404 PageNot Found</h1>')
     }
-
 })
 server.listen(8000,'127.10.0.1',()=>{
     console.log('hey')

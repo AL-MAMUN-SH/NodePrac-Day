@@ -82,7 +82,7 @@
 
 // const server = http.createServer((req,res) => {
 
-//     const pathName = req.url;
+//     const pathname = req.url;
 
 //     if(pathName === '/' || pathName === '/overview'){
 //         res.end('This Is OVERVIEW PAGE')
@@ -156,27 +156,31 @@ const replaceTemplate = (temp,product)=>{
 
 const tempOverview = fs.readFileSync(`${__dirname}/templates/template_overview.html`,'utf-8')
 const tempCard = fs.readFileSync(`${__dirname}/templates/template-cards.html`,'utf-8')
+const tempProduct = fs.readFileSync(`${__dirname}/templates/template-product.html`,'utf-8')
 const dataobj = fs.readFileSync(`${__dirname}/dev-data/data.json`,'utf-8')
 const data =JSON.parse(dataobj)
 
 const server = http.createServer((req,res)=>{
-    const pathName = req.url;
+        // console.log(req.url)
+        // console.log(url.parse(req.url,true))
+        const {query,pathname} = url.parse(req.url,true)
+    //  const { query, pathname } =url.parse(req.url,true)
     
-    if (pathName === '/' || pathName === '/admin'){
-        res.end('THIS ADMIN PAGE');
-
-        // OVERVIEW
-    }else if(pathName === '/overview'){
+    if (pathname === '/' || pathname === '/overview'){
         res.writeHead(200, {'Content-Type': 'text/html'})
         const cardHtml = data.map(el => replaceTemplate(tempCard,el)).join('')
-       const output = tempOverview.replace('{%PRODUCT_CARDS%}',cardHtml);
+        const output = tempOverview.replace('{%PRODUCT_CARDS%}',cardHtml);
         res.end(output)
 
-        // PRODUCT
-    }else if(pathName === '/product'){
-        res.end('product')
+        // OVERVIEW
+    }else if(pathname === '/%7B/product'){
+        res.writeHead(200, {'Content-Type': 'text/html'})
+        const product = data[query.id]
+        const output =replaceTemplate(tempProduct,product)
+        res.end(output)
+    
     }
-    else if (pathName === '/api'){
+    else if (pathname === '/api'){
         // fs.readFile(`${__dirname}/dev-data/data.json`,'utf-8',(err,data)=>{
         //     const Pobj = JSON.parse(data);
         //     // console.log(Pobj)
